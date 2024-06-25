@@ -211,22 +211,22 @@ spec:
                     - mountPath: /etc/kubeblocks
                       name: manager-config
               initContainers:
-                - command:
-                    - /bin/true
-                  image: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-tools:0.8.1
-                  imagePullPolicy: IfNotPresent
-                  name: tools
-                  resources: { }
-                  terminationMessagePath: /dev/termination-log
-                  terminationMessagePolicy: File
-                - command:
-                    - /bin/true
-                  image: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-datascript:0.8.1
-                  imagePullPolicy: IfNotPresent
-                  name: datascript
-                  resources: { }
-                  terminationMessagePath: /dev/termination-log
-                  terminationMessagePolicy: File
+              - command:
+                  - /bin/true
+                image: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-tools:0.8.1
+                imagePullPolicy: IfNotPresent
+                name: tools
+                resources: { }
+                terminationMessagePath: /dev/termination-log
+                terminationMessagePolicy: File
+              - command:
+                  - /bin/true
+                image: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-datascript:0.8.1
+                imagePullPolicy: IfNotPresent
+                name: datascript
+                resources: { }
+                terminationMessagePath: /dev/termination-log
+                terminationMessagePolicy: File
               restartPolicy: Always
               schedulerName: default-scheduler
               securityContext:
