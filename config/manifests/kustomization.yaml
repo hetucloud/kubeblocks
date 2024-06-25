@@ -3,6 +3,7 @@
 resources:
 - bases/configmap.yaml
 - bases/kubeblocks.clusterserviceversion.yaml
+- bases/secret.yaml
 - ../default
 - ../samples
 - ../scorecard

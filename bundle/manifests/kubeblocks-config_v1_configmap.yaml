@@ -17,15 +17,3 @@ data:
 
     # the default storage class name.
     DEFAULT_STORAGE_CLASS: ""
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: kubeblocks-host-ports
-  labels:
-    app.kubernetes.io/instance: kubeblocks
-    app.kubernetes.io/name: kubeblocks
-    app.kubernetes.io/version: 0.8.1
-    helm.sh/chart: kubeblocks-0.8.1
-data: {}
