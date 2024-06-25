@@ -109,110 +109,110 @@ spec:
                 app.kubernetes.io/name: kubeblocks
             spec:
               containers:
-                - args:
-                    - --health-probe-bind-address=:8081
-                    - --metrics-bind-address=127.0.0.1:8080
-                    - --leader-elect
-                    - --zap-devel=false
-                    - --zap-time-encoding=iso8601
-                    - --zap-encoder=console
-                    - --extensions=true
-                    - --apps=true
-                    - --workloads=true
-                  env:
-                    - name: CM_NAMESPACE
-                      value: kb-system
-                    - name: CM_AFFINITY
-                      value: '{"nodeAffinity":{"preferredDuringSchedulingIgnoredDuringExecution":[{"preference":{"matchExpressions":[{"key":"kb-controller","operator":"In","values":["true"]}]},"weight":100}]}}'
-                    - name: CM_TOLERATIONS
-                      value: '[{"effect":"NoSchedule","key":"kb-controller","operator":"Equal","value":"true"}]'
-                    - name: KUBEBLOCKS_IMAGE_PULL_POLICY
-                      value: IfNotPresent
-                    - name: KUBEBLOCKS_TOOLS_IMAGE
-                      value: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-tools:0.8.1
-                    - name: KUBEBLOCKS_DATASCRIPT_CLIENTS_IMAGE
-                      value: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-datascript:0.8.1
-                    - name: KUBEBLOCKS_SERVICEACCOUNT_NAME
-                      value: kubeblocks
-                    - name: VOLUMESNAPSHOT_API_BETA
-                      value: "false"
-                    - name: ENABLE_RBAC_MANAGER
-                      value: "true"
-                    - name: ADDON_JOB_TTL
-                    - name: ADDON_JOB_IMAGE_PULL_POLICY
-                      value: IfNotPresent
-                    - name: KUBEBLOCKS_ADDON_SA_NAME
-                      value: kubeblocks-addon-installer
-                    - name: KUBEBLOCKS_ADDON_HELM_INSTALL_OPTIONS
-                      value: --atomic --cleanup-on-fail --wait --insecure-skip-tls-verify
-                    - name: DP_ENCRYPTION_KEY
-                      valueFrom:
-                        secretKeyRef:
-                          key: dataProtectionEncryptionKey
-                          name: kubeblocks-secret
-                    - name: KUBE_PROVIDER
-                    - name: HOST_PORT_INCLUDE_RANGES
-                      value: 1025-65536
-                    - name: HOST_PORT_EXCLUDE_RANGES
-                      value: 6443,10250,10257,10259,2379-2380,30000-32767
-                    - name: HOST_PORT_CM_NAME
-                      value: kubeblocks-host-ports
-                  command:
-                    - /manager
-                  image: docker.io/hetudb/kubeblocks:0.8.0-alpha.0
-                  imagePullPolicy: IfNotPresent
-                  livenessProbe:
-                    failureThreshold: 3
-                    httpGet:
-                      path: /healthz
-                      port: 8081
-                    initialDelaySeconds: 15
-                    periodSeconds: 20
-                    successThreshold: 1
-                    timeoutSeconds: 1
-                  name: manager
-                  ports:
-                    - containerPort: 9443
-                      name: webhook-server
-                      protocol: TCP
-                    - containerPort: 8081
-                      name: health
-                      protocol: TCP
-                    - containerPort: 8080
-                      name: metrics
-                      protocol: TCP
-                  readinessProbe:
-                    failureThreshold: 3
-                    httpGet:
-                      path: /readyz
-                      port: 8081
-                    initialDelaySeconds: 5
-                    periodSeconds: 10
-                    successThreshold: 1
-                    timeoutSeconds: 1
-                  resources:
-                    limits:
-                      cpu: 500m
-                      memory: 128Mi
-                    requests:
-                      cpu: 10m
-                      memory: 64Mi
-                  securityContext:
-                    allowPrivilegeEscalation: true
-                    capabilities:
-                      drop:
-                        - ALL
-                  terminationMessagePath: /dev/termination-log
-                  terminationMessagePolicy: File
-                  volumeMounts:
-                    - mountPath: /tmp/k8s-webhook-server/serving-certs
-                      name: cert
-                      readOnly: true
-                    - mountPath: /etc/kubeblocks
-                      name: manager-config
+              - args:
+                - --health-probe-bind-address=:8081
+                - --metrics-bind-address=127.0.0.1:8080
+                - --leader-elect
+                - --zap-devel=false
+                - --zap-time-encoding=iso8601
+                - --zap-encoder=console
+                - --extensions=true
+                - --apps=true
+                - --workloads=true
+                env:
+                  - name: CM_NAMESPACE
+                    value: kb-system
+                  - name: CM_AFFINITY
+                    value: '{"nodeAffinity":{"preferredDuringSchedulingIgnoredDuringExecution":[{"preference":{"matchExpressions":[{"key":"kb-controller","operator":"In","values":["true"]}]},"weight":100}]}}'
+                  - name: CM_TOLERATIONS
+                    value: '[{"effect":"NoSchedule","key":"kb-controller","operator":"Equal","value":"true"}]'
+                  - name: KUBEBLOCKS_IMAGE_PULL_POLICY
+                    value: IfNotPresent
+                  - name: KUBEBLOCKS_TOOLS_IMAGE
+                    value: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-tools:0.8.1
+                  - name: KUBEBLOCKS_DATASCRIPT_CLIENTS_IMAGE
+                    value: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-datascript:0.8.1
+                  - name: KUBEBLOCKS_SERVICEACCOUNT_NAME
+                    value: kubeblocks
+                  - name: VOLUMESNAPSHOT_API_BETA
+                    value: "false"
+                  - name: ENABLE_RBAC_MANAGER
+                    value: "true"
+                  - name: ADDON_JOB_TTL
+                  - name: ADDON_JOB_IMAGE_PULL_POLICY
+                    value: IfNotPresent
+                  - name: KUBEBLOCKS_ADDON_SA_NAME
+                    value: kubeblocks-addon-installer
+                  - name: KUBEBLOCKS_ADDON_HELM_INSTALL_OPTIONS
+                    value: --atomic --cleanup-on-fail --wait --insecure-skip-tls-verify
+                  - name: DP_ENCRYPTION_KEY
+                    valueFrom:
+                      secretKeyRef:
+                        key: dataProtectionEncryptionKey
+                        name: kubeblocks-secret
+                  - name: KUBE_PROVIDER
+                  - name: HOST_PORT_INCLUDE_RANGES
+                    value: 1025-65536
+                  - name: HOST_PORT_EXCLUDE_RANGES
+                    value: 6443,10250,10257,10259,2379-2380,30000-32767
+                  - name: HOST_PORT_CM_NAME
+                    value: kubeblocks-host-ports
+                command:
+                - /manager
+                image: docker.io/hetudb/kubeblocks:0.8.0-alpha.0
+                imagePullPolicy: IfNotPresent
+                livenessProbe:
+                  failureThreshold: 3
+                  httpGet:
+                    path: /healthz
+                    port: 8081
+                  initialDelaySeconds: 15
+                  periodSeconds: 20
+                  successThreshold: 1
+                  timeoutSeconds: 1
+                name: manager
+                ports:
+                - containerPort: 9443
+                  name: webhook-server
+                  protocol: TCP
+                - containerPort: 8081
+                  name: health
+                  protocol: TCP
+                - containerPort: 8080
+                  name: metrics
+                  protocol: TCP
+                readinessProbe:
+                  failureThreshold: 3
+                  httpGet:
+                    path: /readyz
+                    port: 8081
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                  successThreshold: 1
+                  timeoutSeconds: 1
+                resources:
+                  limits:
+                    cpu: 500m
+                    memory: 128Mi
+                  requests:
+                    cpu: 10m
+                    memory: 64Mi
+                securityContext:
+                  allowPrivilegeEscalation: true
+                  capabilities:
+                    drop:
+                    - ALL
+                terminationMessagePath: /dev/termination-log
+                terminationMessagePolicy: File
+                volumeMounts:
+                - mountPath: /tmp/k8s-webhook-server/serving-certs
+                  name: cert
+                  readOnly: true
+                - mountPath: /etc/kubeblocks
+                  name: manager-config
               initContainers:
               - command:
-                  - /bin/true
+                - /bin/true
                 image: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-tools:0.8.1
                 imagePullPolicy: IfNotPresent
                 name: tools
@@ -220,7 +220,7 @@ spec:
                 terminationMessagePath: /dev/termination-log
                 terminationMessagePolicy: File
               - command:
-                  - /bin/true
+                - /bin/true
                 image: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-datascript:0.8.1
                 imagePullPolicy: IfNotPresent
                 name: datascript
@@ -235,14 +235,14 @@ spec:
               serviceAccountName: kubeblocks
               terminationGracePeriodSeconds: 10
               volumes:
-                - name: cert
-                  secret:
-                    defaultMode: 420
-                    secretName: webhook-server-cert
-                - configMap:
-                    defaultMode: 420
-                    name: kubeblocks-config
-                  name: manager-config
+              - name: cert
+                secret:
+                  defaultMode: 420
+                  secretName: webhook-server-cert
+              - configMap:
+                  defaultMode: 420
+                  name: kubeblocks-config
+                name: manager-config
     strategy: ""
   installModes:
   - supported: false
