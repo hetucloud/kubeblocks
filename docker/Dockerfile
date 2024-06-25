@@ -1,5 +1,5 @@
 # Build the manager binary
-ARG DIST_IMG=gcr.io/distroless/static:nonroot
+ARG DIST_IMG=alpine:3.18
 
 ARG GO_VERSION=1.21-alpine
 

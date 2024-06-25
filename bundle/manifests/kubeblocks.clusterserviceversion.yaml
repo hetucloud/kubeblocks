@@ -1,0 +1,1975 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: |-
+      [
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "ClusterVersion",
+          "metadata": {
+            "name": "wesql-8.0.32"
+          },
+          "spec": {
+            "clusterDefinitionRef": "wesql",
+            "components": [
+              {
+                "type": "replicasets",
+                "versionsContext": {
+                  "containers": [
+                    {
+                      "image": "docker.io/apecloud/apecloud-mysql-server:latest",
+                      "name": "mysql"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "Component",
+          "metadata": {
+            "labels": {
+              "app.kubernetes.io/created-by": "kubeblocks",
+              "app.kubernetes.io/instance": "component-sample",
+              "app.kubernetes.io/managed-by": "kustomize",
+              "app.kubernetes.io/name": "component",
+              "app.kubernetes.io/part-of": "kubeblocks"
+            },
+            "name": "component-sample"
+          },
+          "spec": null
+        },
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "ComponentClassDefinition",
+          "metadata": {
+            "labels": {
+              "app.kubernetes.io/created-by": "kubeblocks",
+              "app.kubernetes.io/instance": "componentclassdefinition-sample",
+              "app.kubernetes.io/managed-by": "kustomize",
+              "app.kubernetes.io/name": "componentclassdefinition",
+              "app.kubernetes.io/part-of": "kubeblocks"
+            },
+            "name": "componentclassdefinition-sample"
+          },
+          "spec": null
+        },
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "ComponentDefinition",
+          "metadata": {
+            "labels": {
+              "app.kubernetes.io/created-by": "kubeblocks",
+              "app.kubernetes.io/instance": "componentdefinition-sample",
+              "app.kubernetes.io/managed-by": "kustomize",
+              "app.kubernetes.io/name": "componentdefinition",
+              "app.kubernetes.io/part-of": "kubeblocks"
+            },
+            "name": "componentdefinition-sample"
+          },
+          "spec": null
+        },
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "ComponentResourceConstraint",
+          "metadata": {
+            "labels": {
+              "app.kuberentes.io/managed-by": "kustomize",
+              "app.kubernetes.io/created-by": "kubeblocks",
+              "app.kubernetes.io/instance": "componentresourceconstraint-sample",
+              "app.kubernetes.io/name": "componentresourceconstraint",
+              "app.kubernetes.io/part-of": "kubeblocks"
+            },
+            "name": "componentresourceconstraint-sample"
+          },
+          "spec": null
+        },
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "Configuration",
+          "metadata": {
+            "labels": {
+              "app.kubernetes.io/created-by": "kubeblocks",
+              "app.kubernetes.io/instance": "configuration-sample",
+              "app.kubernetes.io/managed-by": "kustomize",
+              "app.kubernetes.io/name": "configuration",
+              "app.kubernetes.io/part-of": "kubeblocks"
+            },
+            "name": "configuration-sample"
+          },
+          "spec": null
+        },
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "OpsDefinition",
+          "metadata": {
+            "name": "opsdefinition-sample"
+          },
+          "spec": null
+        },
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "OpsRequest",
+          "metadata": {
+            "generateName": "mysql-horizontalscaling-",
+            "name": "mysql-horizontalscaling-",
+            "namespace": "default"
+          },
+          "spec": {
+            "clusterRef": "wesql",
+            "horizontalScaling": [
+              {
+                "componentName": "wesql",
+                "replicas": 3
+              }
+            ],
+            "type": "HorizontalScaling"
+          }
+        },
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "OpsRequest",
+          "metadata": {
+            "generateName": "mysql-reconfigure-",
+            "name": "mysql-reconfigure-",
+            "namespace": "default"
+          },
+          "spec": {
+            "clusterRef": "wesql",
+            "reconfigure": {
+              "componentName": "wesql",
+              "configurations": [
+                {
+                  "keys": [
+                    {
+                      "key": "my.cnf",
+                      "parameters": [
+                        {
+                          "key": "general_log",
+                          "value": "OFF"
+                        },
+                        {
+                          "key": "max_connections",
+                          "value": "2000"
+                        }
+                      ]
+                    }
+                  ],
+                  "name": "mysql-3node-tpl"
+                }
+              ]
+            },
+            "type": "Reconfiguring"
+          }
+        },
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "OpsRequest",
+          "metadata": {
+            "generateName": "mysql-restart-",
+            "name": "mysql-restart-",
+            "namespace": "default"
+          },
+          "spec": {
+            "clusterRef": "wesql",
+            "restart": [
+              {
+                "componentName": "replicasets"
+              }
+            ],
+            "ttlSecondsAfterSucceed": 3600,
+            "type": "Restart"
+          }
+        },
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "OpsRequest",
+          "metadata": {
+            "generateName": "mysql-upgrade-",
+            "name": "mysql-upgrade-",
+            "namespace": "default"
+          },
+          "spec": {
+            "clusterRef": "wesql",
+            "type": "Upgrade",
+            "upgrade": {
+              "clusterVersionRef": "wesql-8.0.32"
+            }
+          }
+        },
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "OpsRequest",
+          "metadata": {
+            "generateName": "mysql-verticalscaling-",
+            "name": "mysql-verticalscaling-",
+            "namespace": "default"
+          },
+          "spec": {
+            "clusterRef": "wesql",
+            "ttlSecondsAfterSucceed": 600,
+            "type": "VerticalScaling",
+            "verticalScaling": [
+              {
+                "componentName": "wesql",
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "470Mi"
+                },
+                "requests": {
+                  "cpu": "280m",
+                  "memory": "390Mi"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "OpsRequest",
+          "metadata": {
+            "generateName": "mysql-volumeexpansion-",
+            "name": "mysql-volumeexpansion-",
+            "namespace": "default"
+          },
+          "spec": {
+            "clusterRef": "wesql",
+            "type": "VolumeExpansion",
+            "volumeExpansion": [
+              {
+                "componentName": "wesql",
+                "volumeClaimTemplates": [
+                  {
+                    "name": "data",
+                    "storage": "2Gi"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "apps.kubeblocks.io/v1alpha1",
+          "kind": "ServiceDescriptor",
+          "metadata": {
+            "labels": {
+              "app.kubernetes.io/created-by": "kubeblocks",
+              "app.kubernetes.io/instance": "servicedescriptor-sample",
+              "app.kubernetes.io/managed-by": "kustomize",
+              "app.kubernetes.io/name": "servicedescriptor",
+              "app.kubernetes.io/part-of": "kubeblocks"
+            },
+            "name": "servicedescriptor-sample"
+          },
+          "spec": null
+        },
+        {
+          "apiVersion": "dataprotection.kubeblocks.io/v1alpha1",
+          "kind": "Restore",
+          "metadata": {
+            "name": "restore-sample"
+          },
+          "spec": null
+        },
+        {
+          "apiVersion": "extensions.kubeblocks.io/v1alpha1",
+          "kind": "Addon",
+          "metadata": {
+            "labels": {
+              "app.kubernetes.io/created-by": "kubeblocks",
+              "app.kubernetes.io/instance": "addon-sample",
+              "app.kubernetes.io/managed-by": "kustomize",
+              "app.kubernetes.io/name": "addon",
+              "app.kubernetes.io/part-of": "kubeblocks"
+            },
+            "name": "prometheus-sample"
+          },
+          "spec": {
+            "defaultInstallValues": [
+              {
+                "extras": [
+                  {
+                    "name": "alertmanager",
+                    "replicas": 1,
+                    "resources": {
+                      "requests": {
+                        "storage": "1Gi"
+                      }
+                    },
+                    "storageClass": null,
+                    "tolerations": "[]"
+                  }
+                ],
+                "replicas": 1,
+                "resources": {
+                  "requests": {
+                    "storage": "1Gi"
+                  }
+                },
+                "storageClass": null,
+                "tolerations": "[]"
+              },
+              {
+                "extras": [
+                  {
+                    "name": "alertmanager",
+                    "replicas": 1,
+                    "resources": {
+                      "requests": {
+                        "storage": "20Gi"
+                      }
+                    },
+                    "storageClass": "alicloud-disk-efficiency"
+                  }
+                ],
+                "replicas": 1,
+                "resources": {
+                  "requests": {
+                    "storage": "20Gi"
+                  }
+                },
+                "selectors": [
+                  {
+                    "key": "KubeGitVersion",
+                    "operator": "Contains",
+                    "values": [
+                      "ack"
+                    ]
+                  }
+                ],
+                "storageClass": "alicloud-disk-efficiency",
+                "tolerations": "[]"
+              }
+            ],
+            "description": "Prometheus is a monitoring system and time series database.",
+            "helm": {
+              "chartLocationURL": "https://github.com/prometheus-community/helm-charts/releases/download/prometheus-15.16.1/prometheus-15.16.1.tgz",
+              "installOptions": null,
+              "installValues": {
+                "configMapRefs": null,
+                "secretRefs": null,
+                "setJSONValues": [],
+                "setValues": [
+                  "alertmanager.image.repository=infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/alertmanager",
+                  "alertmanager.image.tag=v0.24.0",
+                  "kubeStateMetrics.enabled=false",
+                  "nodeExporter.enabled=false",
+                  "nodeExporter.image.repository=infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/node-exporter",
+                  "nodeExporter.image.tag=v1.3.1",
+                  "configmapReload.prometheus.image.repository=infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/configmap-reload",
+                  "configmapReload.prometheus.image.tag=v0.5.0",
+                  "configmapReload.alertmanager.image.repository=infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/configmap-reload",
+                  "configmapReload.alertmanager.image.tag=v0.5.0",
+                  "server.image.repository=infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/prometheus",
+                  "server.image.tag=v2.39.1",
+                  "pushgateway.enabled=false"
+                ],
+                "urls": []
+              },
+              "valuesMapping": {
+                "extras": [
+                  {
+                    "jsonMap": {
+                      "tolerations": "alertmanager.tolerations"
+                    },
+                    "name": "alertmanager",
+                    "resources": {
+                      "cpu": {
+                        "limits": "alertmanager.resources.limits.cpu",
+                        "requests": "alertmanager.resources.requests.cpu"
+                      },
+                      "memory": {
+                        "limits": "alertmanager.resources.limits.memory",
+                        "requests": "alertmanager.resources.requests.memory"
+                      },
+                      "storage": "alertmanager.persistentVolume.size"
+                    },
+                    "valueMap": {
+                      "persistentVolumeEnabled": "alertmanager.persistentVolume.enabled",
+                      "replicaCount": "alertmanager.replicaCount",
+                      "storageClass": "alertmanager.persistentVolume.storageClass"
+                    }
+                  }
+                ],
+                "jsonMap": {
+                  "tolerations": "server.tolerations"
+                },
+                "resources": {
+                  "cpu": {
+                    "limits": "server.resources.limits.cpu",
+                    "requests": "server.resources.requests.cpu"
+                  },
+                  "memory": {
+                    "limits": "server.resources.limits.memory",
+                    "requests": "server.resources.requests.memory"
+                  },
+                  "storage": "server.persistentVolume.size"
+                },
+                "valueMap": {
+                  "persistentVolumeEnabled": "server.persistentVolume.enabled",
+                  "replicaCount": "server.replicaCount",
+                  "storageClass": "server.persistentVolume.storageClass"
+                }
+              }
+            },
+            "installable": {
+              "autoInstall": true,
+              "selectors": [
+                {
+                  "key": "KubeGitVersion",
+                  "operator": "Contains",
+                  "values": [
+                    "eks",
+                    "ack"
+                  ]
+                }
+              ]
+            },
+            "type": "Helm"
+          }
+        },
+        {
+          "apiVersion": "workloads.kubeblocks.io/v1alpha1",
+          "kind": "ReplicatedStateMachine",
+          "metadata": {
+            "labels": {
+              "app.kubernetes.io/created-by": "kubeblocks",
+              "app.kubernetes.io/instance": "replicatedstatemachine-sample",
+              "app.kubernetes.io/managed-by": "kustomize",
+              "app.kubernetes.io/name": "replicatedstatemachine",
+              "app.kubernetes.io/part-of": "kubeblocks"
+            },
+            "name": "replicatedstatemachine-sample"
+          },
+          "spec": null
+        }
+      ]
+    capabilities: Basic Install
+    createdAt: "2024-06-24T09:38:07Z"
+    operators.operatorframework.io/builder: operator-sdk-v1.35.0
+    operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
+  name: kubeblocks.v0.8.0-alpha.0
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - kind: ActionSet
+      name: actionsets.dataprotection.kubeblocks.io
+      version: v1alpha1
+    - kind: Addon
+      name: addons.extensions.kubeblocks.io
+      version: v1alpha1
+    - kind: BackupPolicy
+      name: backuppolicies.dataprotection.kubeblocks.io
+      version: v1alpha1
+    - kind: BackupPolicyTemplate
+      name: backuppolicytemplates.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: BackupRepo
+      name: backuprepos.dataprotection.kubeblocks.io
+      version: v1alpha1
+    - kind: Backup
+      name: backups.dataprotection.kubeblocks.io
+      version: v1alpha1
+    - kind: BackupSchedule
+      name: backupschedules.dataprotection.kubeblocks.io
+      version: v1alpha1
+    - kind: ClusterDefinition
+      name: clusterdefinitions.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: Cluster
+      name: clusters.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: ClusterVersion
+      name: clusterversions.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: ComponentClassDefinition
+      name: componentclassdefinitions.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: ComponentDefinition
+      name: componentdefinitions.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: ComponentResourceConstraint
+      name: componentresourceconstraints.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: Component
+      name: components.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: ConfigConstraint
+      name: configconstraints.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: Configuration
+      name: configurations.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: OpsDefinition
+      name: opsdefinitions.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: OpsRequest
+      name: opsrequests.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: ReplicatedStateMachine
+      name: replicatedstatemachines.workloads.kubeblocks.io
+      version: v1alpha1
+    - kind: Restore
+      name: restores.dataprotection.kubeblocks.io
+      version: v1alpha1
+    - kind: ServiceDescriptor
+      name: servicedescriptors.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: StorageProvider
+      name: storageproviders.storage.kubeblocks.io
+      version: v1alpha1
+  description: kubeblocks
+  displayName: kubeblocks
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      clusterPermissions:
+      - rules:
+        - apiGroups:
+          - apps
+          resources:
+          - deployments
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps
+          resources:
+          - deployments/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps
+          resources:
+          - deployments/status
+          verbs:
+          - get
+        - apiGroups:
+          - apps
+          resources:
+          - statefulsets
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps
+          resources:
+          - statefulsets/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps
+          resources:
+          - statefulsets/status
+          verbs:
+          - get
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - backuppolicytemplates
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - backuppolicytemplates/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - backuppolicytemplates/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - clusterdefinitions
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - clusterdefinitions/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - clusterdefinitions/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - clusters
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - clusters/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - clusters/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - clusterversions
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - clusterversions/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - clusterversions/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - componentclassdefinitions
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - componentclassdefinitions/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - componentclassdefinitions/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - componentdefinitions
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - componentdefinitions/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - componentdefinitions/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - componentresourceconstraints
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - components
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - components/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - components/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - configconstraints
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - configconstraints/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - configconstraints/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - configurations
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - configurations/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - configurations/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - opsdefinitions
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - opsdefinitions/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - opsdefinitions/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - opsrequests
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - opsrequests/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - opsrequests/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - servicedescriptors
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - servicedescriptors/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps.kubeblocks.io
+          resources:
+          - servicedescriptors/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - batch
+          resources:
+          - cronjobs
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - batch
+          resources:
+          - cronjobs/finalizers
+          verbs:
+          - patch
+          - update
+        - apiGroups:
+          - batch
+          resources:
+          - cronjobs/status
+          verbs:
+          - get
+        - apiGroups:
+          - batch
+          resources:
+          - jobs
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - batch
+          resources:
+          - jobs/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - batch
+          resources:
+          - jobs/status
+          verbs:
+          - get
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - create
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - configmap
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - configmap/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+          - get
+          - list
+          - patch
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - persistentvolumeclaims
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - persistentvolumeclaims/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - persistentvolumeclaims/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - persistentvolumes
+          verbs:
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - pods
+          verbs:
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - pods/exec
+          verbs:
+          - create
+        - apiGroups:
+          - ""
+          resources:
+          - pods/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - pods/log
+          verbs:
+          - get
+          - list
+        - apiGroups:
+          - ""
+          resources:
+          - secrets
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - secrets/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - serviceaccounts
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - serviceaccounts/status
+          verbs:
+          - get
+        - apiGroups:
+          - ""
+          resources:
+          - services
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - services/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - services/status
+          verbs:
+          - get
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - actionsets
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - actionsets/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - actionsets/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - backuppolicies
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - backuppolicies/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - backuppolicies/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - backuprepos
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - backuprepos/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - backuprepos/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - backups
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - backups/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - backups/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - backupschedules
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - backupschedules/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - backupschedules/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - restores
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - restores/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - dataprotection.kubeblocks.io
+          resources:
+          - restores/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - extensions.kubeblocks.io
+          resources:
+          - addons
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - extensions.kubeblocks.io
+          resources:
+          - addons/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - extensions.kubeblocks.io
+          resources:
+          - addons/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - policy
+          resources:
+          - poddisruptionbudgets
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - policy
+          resources:
+          - poddisruptionbudgets/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - clusterrolebindings
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - clusterrolebindings/status
+          verbs:
+          - get
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - rolebindings
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - rolebindings/status
+          verbs:
+          - get
+        - apiGroups:
+          - snapshot.storage.k8s.io
+          resources:
+          - volumesnapshotclasses
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - snapshot.storage.k8s.io
+          resources:
+          - volumesnapshotclasses/finalizers
+          verbs:
+          - patch
+          - update
+        - apiGroups:
+          - snapshot.storage.k8s.io
+          resources:
+          - volumesnapshots
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - snapshot.storage.k8s.io
+          resources:
+          - volumesnapshots/finalizers
+          verbs:
+          - patch
+          - update
+        - apiGroups:
+          - storage.k8s.io
+          resources:
+          - csidrivers
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - storage.k8s.io
+          resources:
+          - storageclasses
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - storage.kubeblocks.io
+          resources:
+          - storageproviders
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - storage.kubeblocks.io
+          resources:
+          - storageproviders/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - storage.kubeblocks.io
+          resources:
+          - storageproviders/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - workloads.kubeblocks.io
+          resources:
+          - replicatedstatemachines
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - workloads.kubeblocks.io
+          resources:
+          - replicatedstatemachines/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - workloads.kubeblocks.io
+          resources:
+          - replicatedstatemachines/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - authentication.k8s.io
+          resources:
+          - tokenreviews
+          verbs:
+          - create
+        - apiGroups:
+          - authorization.k8s.io
+          resources:
+          - subjectaccessreviews
+          verbs:
+          - create
+        serviceAccountName: kubeblocks
+      deployments:
+      - label:
+          control-plane: controller-manager
+        name: kubeblocks-controller-manager
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              control-plane: controller-manager
+              app.kubernetes.io/instance: kubeblocks
+              app.kubernetes.io/name: kubeblocks
+          strategy:
+            rollingUpdate:
+              maxSurge: 1
+              maxUnavailable: 40%
+            type: RollingUpdate
+          template:
+            metadata:
+              annotations:
+                kubectl.kubernetes.io/default-container: manager
+              labels:
+                control-plane: controller-manager
+                app.kubernetes.io/instance: kubeblocks
+                app.kubernetes.io/name: kubeblocks
+            spec:
+              containers:
+              - args:
+                - --health-probe-bind-address=:8081
+                - --metrics-bind-address=127.0.0.1:8080
+                - --leader-elect
+                - --zap-devel=false
+                - --zap-time-encoding=iso8601
+                - --zap-encoder=console
+                - --extensions=true
+                - --apps=true
+                - --workloads=true
+                env:
+                  - name: CM_NAMESPACE
+                    value: kb-system
+                  - name: CM_AFFINITY
+                    value: '{"nodeAffinity":{"preferredDuringSchedulingIgnoredDuringExecution":[{"preference":{"matchExpressions":[{"key":"kb-controller","operator":"In","values":["true"]}]},"weight":100}]}}'
+                  - name: CM_TOLERATIONS
+                    value: '[{"effect":"NoSchedule","key":"kb-controller","operator":"Equal","value":"true"}]'
+                  - name: KUBEBLOCKS_IMAGE_PULL_POLICY
+                    value: IfNotPresent
+                  - name: KUBEBLOCKS_TOOLS_IMAGE
+                    value: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-tools:0.8.1
+                  - name: KUBEBLOCKS_DATASCRIPT_CLIENTS_IMAGE
+                    value: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-datascript:0.8.1
+                  - name: KUBEBLOCKS_SERVICEACCOUNT_NAME
+                    value: kubeblocks
+                  - name: VOLUMESNAPSHOT_API_BETA
+                    value: "false"
+                  - name: ENABLE_RBAC_MANAGER
+                    value: "true"
+                  - name: ADDON_JOB_TTL
+                  - name: ADDON_JOB_IMAGE_PULL_POLICY
+                    value: IfNotPresent
+                  - name: KUBEBLOCKS_ADDON_SA_NAME
+                    value: kubeblocks-addon-installer
+                  - name: KUBEBLOCKS_ADDON_HELM_INSTALL_OPTIONS
+                    value: --atomic --cleanup-on-fail --wait --insecure-skip-tls-verify
+                  - name: DP_ENCRYPTION_KEY
+                    valueFrom:
+                      secretKeyRef:
+                        key: dataProtectionEncryptionKey
+                        name: kubeblocks-secret
+                  - name: KUBE_PROVIDER
+                  - name: HOST_PORT_INCLUDE_RANGES
+                    value: 1025-65536
+                  - name: HOST_PORT_EXCLUDE_RANGES
+                    value: 6443,10250,10257,10259,2379-2380,30000-32767
+                  - name: HOST_PORT_CM_NAME
+                    value: kubeblocks-host-ports
+                command:
+                - /manager
+                image: docker.io/hetudb/kubeblocks:0.8.0-alpha.0
+                imagePullPolicy: IfNotPresent
+                livenessProbe:
+                  failureThreshold: 3
+                  httpGet:
+                    path: /healthz
+                    port: 8081
+                  initialDelaySeconds: 15
+                  periodSeconds: 20
+                  successThreshold: 1
+                  timeoutSeconds: 1
+                name: manager
+                ports:
+                - containerPort: 9443
+                  name: webhook-server
+                  protocol: TCP
+                - containerPort: 8081
+                  name: health
+                  protocol: TCP
+                - containerPort: 8080
+                  name: metrics
+                  protocol: TCP
+                readinessProbe:
+                  failureThreshold: 3
+                  httpGet:
+                    path: /readyz
+                    port: 8081
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                  successThreshold: 1
+                  timeoutSeconds: 1
+                resources:
+                  limits:
+                    cpu: 500m
+                    memory: 128Mi
+                  requests:
+                    cpu: 10m
+                    memory: 64Mi
+                securityContext:
+                  allowPrivilegeEscalation: true
+                  capabilities:
+                    drop:
+                    - ALL
+                terminationMessagePath: /dev/termination-log
+                terminationMessagePolicy: File
+                volumeMounts:
+                - mountPath: /tmp/k8s-webhook-server/serving-certs
+                  name: cert
+                  readOnly: true
+                - mountPath: /etc/kubeblocks
+                  name: manager-config
+              initContainers:
+              - command:
+                - /bin/true
+                image: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-tools:0.8.1
+                imagePullPolicy: IfNotPresent
+                name: tools
+                resources: { }
+                terminationMessagePath: /dev/termination-log
+                terminationMessagePolicy: File
+              - command:
+                - /bin/true
+                image: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-datascript:0.8.1
+                imagePullPolicy: IfNotPresent
+                name: datascript
+                resources: { }
+                terminationMessagePath: /dev/termination-log
+                terminationMessagePolicy: File
+              restartPolicy: Always
+              schedulerName: default-scheduler
+              securityContext:
+                runAsNonRoot: false
+              serviceAccount: kubeblocks
+              serviceAccountName: kubeblocks
+              terminationGracePeriodSeconds: 10
+              volumes:
+              - name: cert
+                secret:
+                  defaultMode: 420
+                  secretName: webhook-server-cert
+              - configMap:
+                  defaultMode: 420
+                  name: kubeblocks-manager-config
+                name: manager-config
+      permissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+          - patch
+        serviceAccountName: kubeblocks
+    strategy: deployment
+  relatedObjects:
+    - apiVersion: v1
+      kind: ConfigMap
+      name: kubeblocks-manager-config
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - k8s
+  - kubeblocks
+  - k8s-operator
+  - easy operator
+  links:
+  - name: Kubeblocks
+    url: https://kubeblocks.domain
+  maintainers:
+  - email: realxiliu@gmail.com
+    name: xiliu
+  maturity: alpha
+  provider:
+    name: ApeCloud Inc
+    url: https://kubeblocks.io
+  version: 0.8.0-alpha.0
+  webhookdefinitions:
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kubeblocks-controller-manager
+    failurePolicy: Fail
+    generateName: mclusterdefinition.kb.io
+    rules:
+    - apiGroups:
+      - apps.kubeblocks.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - clusterdefinitions
+    sideEffects: None
+    targetPort: 9443
+    type: MutatingAdmissionWebhook
+    webhookPath: /mutate-apps-kubeblocks-io-v1alpha1-clusterdefinition
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kubeblocks-controller-manager
+    failurePolicy: Fail
+    generateName: mcomponent.kb.io
+    rules:
+    - apiGroups:
+      - apps.kubeblocks.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - components
+    sideEffects: None
+    targetPort: 9443
+    type: MutatingAdmissionWebhook
+    webhookPath: /mutate-apps-kubeblocks-io-v1alpha1-component
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kubeblocks-controller-manager
+    failurePolicy: Fail
+    generateName: mcomponentdefinition.kb.io
+    rules:
+    - apiGroups:
+      - apps.kubeblocks.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - componentdefinitions
+    sideEffects: None
+    targetPort: 9443
+    type: MutatingAdmissionWebhook
+    webhookPath: /mutate-apps-kubeblocks-io-v1alpha1-componentdefinition
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kubeblocks-controller-manager
+    failurePolicy: Fail
+    generateName: mreplicatedstatemachine.kb.io
+    rules:
+    - apiGroups:
+      - workloads.kubeblocks.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - replicatedstatemachines
+    sideEffects: None
+    targetPort: 9443
+    type: MutatingAdmissionWebhook
+    webhookPath: /mutate-workloads-kubeblocks-io-v1alpha1-replicatedstatemachine
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kubeblocks-controller-manager
+    failurePolicy: Fail
+    generateName: mservicedescriptor.kb.io
+    rules:
+    - apiGroups:
+      - apps.kubeblocks.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - servicedescriptors
+    sideEffects: None
+    targetPort: 9443
+    type: MutatingAdmissionWebhook
+    webhookPath: /mutate-apps-kubeblocks-io-v1alpha1-servicedescriptor
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kubeblocks-controller-manager
+    failurePolicy: Fail
+    generateName: vcluster.kb.io
+    rules:
+    - apiGroups:
+      - apps.kubeblocks.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - clusters
+    sideEffects: None
+    targetPort: 9443
+    type: ValidatingAdmissionWebhook
+    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-cluster
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kubeblocks-controller-manager
+    failurePolicy: Fail
+    generateName: vclusterdefinition.kb.io
+    rules:
+    - apiGroups:
+      - apps.kubeblocks.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - clusterdefinitions
+    sideEffects: None
+    targetPort: 9443
+    type: ValidatingAdmissionWebhook
+    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-clusterdefinition
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kubeblocks-controller-manager
+    failurePolicy: Fail
+    generateName: vclusterversion.kb.io
+    rules:
+    - apiGroups:
+      - apps.kubeblocks.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - clusterversions
+    sideEffects: None
+    targetPort: 9443
+    type: ValidatingAdmissionWebhook
+    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-clusterversion
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kubeblocks-controller-manager
+    failurePolicy: Fail
+    generateName: vcomponent.kb.io
+    rules:
+    - apiGroups:
+      - apps.kubeblocks.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - components
+    sideEffects: None
+    targetPort: 9443
+    type: ValidatingAdmissionWebhook
+    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-component
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kubeblocks-controller-manager
+    failurePolicy: Fail
+    generateName: vcomponentdefinition.kb.io
+    rules:
+    - apiGroups:
+      - apps.kubeblocks.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - componentdefinitions
+    sideEffects: None
+    targetPort: 9443
+    type: ValidatingAdmissionWebhook
+    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-componentdefinition
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kubeblocks-controller-manager
+    failurePolicy: Fail
+    generateName: vopsrequest.kb.io
+    rules:
+    - apiGroups:
+      - apps.kubeblocks.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - opsrequests
+    sideEffects: None
+    targetPort: 9443
+    type: ValidatingAdmissionWebhook
+    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-opsrequest
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kubeblocks-controller-manager
+    failurePolicy: Fail
+    generateName: vreplicatedstatemachine.kb.io
+    rules:
+    - apiGroups:
+      - workloads.kubeblocks.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - replicatedstatemachines
+    sideEffects: None
+    targetPort: 9443
+    type: ValidatingAdmissionWebhook
+    webhookPath: /validate-workloads-kubeblocks-io-v1alpha1-replicatedstatemachine
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kubeblocks-controller-manager
+    failurePolicy: Fail
+    generateName: vservicedescriptor.kb.io
+    rules:
+    - apiGroups:
+      - apps.kubeblocks.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - servicedescriptors
+    sideEffects: None
+    targetPort: 9443
+    type: ValidatingAdmissionWebhook
+    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-servicedescriptor

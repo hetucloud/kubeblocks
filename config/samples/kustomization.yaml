@@ -1,0 +1,20 @@
+## Append samples you want in your CSV to this file as resources ##
+resources:
+- apps_v1alpha1_component.yaml
+- extensions_v1alpha1_addon.yaml
+- dataprotection_v1alpha1_restore.yaml
+- apps_v1alpha1_servicedescriptor.yaml
+- apps_v1alpha1_opsdefinition.yaml
+- apps_v1alpha1_configuration.yaml
+- apps_v1alpha1_componentresourceconstraint.yaml
+- apps_v1alpha1_componentdefinition.yaml
+- apps_v1alpha1_componentclassdefinition.yaml
+- workloads_v1alpha1_replicatedstatemachine.yaml
+- ops/mysql_clusterversion_upgrade.yaml
+- ops/mysql_horizontalscaling.yaml
+- ops/mysql_reconfigure.yaml
+- ops/mysql_restart.yaml
+- ops/mysql_upgrade.yaml
+- ops/mysql_verticalscaling.yaml
+- ops/mysql_volumeexpansion.yaml
+#+kubebuilder:scaffold:manifestskustomizesamples

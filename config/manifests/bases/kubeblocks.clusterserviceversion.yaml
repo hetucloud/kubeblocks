@@ -1,0 +1,112 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+  name: kubeblocks.v0.8.0
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - kind: ActionSet
+      name: actionsets.dataprotection.kubeblocks.io
+      version: v1alpha1
+    - kind: Addon
+      name: addons.extensions.kubeblocks.io
+      version: v1alpha1
+    - kind: BackupPolicy
+      name: backuppolicies.dataprotection.kubeblocks.io
+      version: v1alpha1
+    - kind: BackupPolicyTemplate
+      name: backuppolicytemplates.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: BackupRepo
+      name: backuprepos.dataprotection.kubeblocks.io
+      version: v1alpha1
+    - kind: Backup
+      name: backups.dataprotection.kubeblocks.io
+      version: v1alpha1
+    - kind: BackupSchedule
+      name: backupschedules.dataprotection.kubeblocks.io
+      version: v1alpha1
+    - kind: ClusterDefinition
+      name: clusterdefinitions.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: Cluster
+      name: clusters.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: ClusterVersion
+      name: clusterversions.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: ComponentClassDefinition
+      name: componentclassdefinitions.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: ComponentDefinition
+      name: componentdefinitions.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: ComponentResourceConstraint
+      name: componentresourceconstraints.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: Component
+      name: components.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: ConfigConstraint
+      name: configconstraints.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: Configuration
+      name: configurations.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: OpsDefinition
+      name: opsdefinitions.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: OpsRequest
+      name: opsrequests.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: ReplicatedStateMachine
+      name: replicatedstatemachines.workloads.kubeblocks.io
+      version: v1alpha1
+    - kind: Restore
+      name: restores.dataprotection.kubeblocks.io
+      version: v1alpha1
+    - kind: ServiceDescriptor
+      name: servicedescriptors.apps.kubeblocks.io
+      version: v1alpha1
+    - kind: StorageProvider
+      name: storageproviders.storage.kubeblocks.io
+      version: v1alpha1
+  description: kubeblocks
+  displayName: kubeblocks
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      deployments: null
+    strategy: ""
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - k8s
+  - kubeblocks
+  - k8s-operator
+  - easy operator
+  links:
+  - name: Kubeblocks
+    url: https://kubeblocks.domain
+  maintainers:
+  - email: realxiliu@gmail.com
+    name: xiliu
+  maturity: alpha
+  provider:
+    name: ApeCloud Inc
+    url: https://kubeblocks.io
+  version: 0.8.0

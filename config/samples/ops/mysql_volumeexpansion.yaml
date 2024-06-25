@@ -1,6 +1,7 @@
 apiVersion: apps.kubeblocks.io/v1alpha1
 kind: OpsRequest
 metadata:
+  name: mysql-volumeexpansion-
   generateName: mysql-volumeexpansion-
   namespace: default
 spec:
