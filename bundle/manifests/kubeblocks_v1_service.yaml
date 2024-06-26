@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/instance: kubeblocks
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubeblocks
+    app.kubernetes.io/version: 0.8.1
+    control-plane: controller-manager
+    helm.sh/chart: kubeblocks-0.8.1
+  name: kubeblocks
+spec:
+  ports:
+  - name: webhook-server
+    port: 9443
+    protocol: TCP
+    targetPort: webhook-server
+  selector:
+    app.kubernetes.io/instance: kubeblocks
+    app.kubernetes.io/name: kubeblocks
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
