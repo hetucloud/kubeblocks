@@ -2,9 +2,10 @@
 # used to generate the 'manifests/' directory in a bundle.
 resources:
 - bases/configmap.yaml
-- bases/kubeblocks.clusterserviceversion.yaml
 - bases/secret.yaml
 - bases/service.yaml
+- bases/serviceaccount.yaml
+- bases/kubeblocks.clusterserviceversion.yaml
 - ../default
 - ../samples
 - ../scorecard

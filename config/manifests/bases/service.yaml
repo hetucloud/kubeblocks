@@ -1,22 +1,22 @@
+# Source: kubeblocks/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: kubeblocks
   labels:
     control-plane: controller-manager
-    app.kubernetes.io/instance: kubeblocks
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubeblocks
-    app.kubernetes.io/version: 0.8.1
     helm.sh/chart: kubeblocks-0.8.1
+    app.kubernetes.io/name: kubeblocks
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "0.8.1"
+    app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
   ports:
-  - name: webhook-server
-    port: 9443
-    targetPort: webhook-server
-    protocol: TCP
+    - port: 9443
+      targetPort: webhook-server
+      protocol: TCP
+      name: webhook-server
   selector:
-    app.kubernetes.io/instance: kubeblocks
     app.kubernetes.io/name: kubeblocks
-  sessionAffinity: None
+    app.kubernetes.io/instance: kubeblocks

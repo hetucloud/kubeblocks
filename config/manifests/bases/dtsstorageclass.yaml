@@ -1,0 +1,18 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ccos-hostpath-dts
+  annotations:
+    ccos.io/cas-type: local
+    cas.ccos.io/config: |
+      - name: NodeAffinityLabel
+        value: "node-role.kubernetes.io/database="
+      - name: StorageType
+        value: hostpath
+      - name: PathType
+        value: Directory
+      - name: BasePath
+        value: /ccos-data/database
+provisioner: ccos.io/local
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
