@@ -3,7 +3,7 @@ kind: ClusterServiceVersion
 metadata:
   annotations:
     alm-examples: |-
-      [
+      [ 
         {
           "apiVersion": "apps.kubeblocks.io/v1alpha1",
           "kind": "ClusterVersion",
@@ -41,417 +41,19 @@ metadata:
             "name": "component-sample"
           },
           "spec": null
-        },
-        {
-          "apiVersion": "apps.kubeblocks.io/v1alpha1",
-          "kind": "ComponentClassDefinition",
-          "metadata": {
-            "labels": {
-              "app.kubernetes.io/created-by": "kubeblocks",
-              "app.kubernetes.io/instance": "componentclassdefinition-sample",
-              "app.kubernetes.io/managed-by": "kustomize",
-              "app.kubernetes.io/name": "componentclassdefinition",
-              "app.kubernetes.io/part-of": "kubeblocks"
-            },
-            "name": "componentclassdefinition-sample"
-          },
-          "spec": null
-        },
-        {
-          "apiVersion": "apps.kubeblocks.io/v1alpha1",
-          "kind": "ComponentDefinition",
-          "metadata": {
-            "labels": {
-              "app.kubernetes.io/created-by": "kubeblocks",
-              "app.kubernetes.io/instance": "componentdefinition-sample",
-              "app.kubernetes.io/managed-by": "kustomize",
-              "app.kubernetes.io/name": "componentdefinition",
-              "app.kubernetes.io/part-of": "kubeblocks"
-            },
-            "name": "componentdefinition-sample"
-          },
-          "spec": null
-        },
-        {
-          "apiVersion": "apps.kubeblocks.io/v1alpha1",
-          "kind": "ComponentResourceConstraint",
-          "metadata": {
-            "labels": {
-              "app.kuberentes.io/managed-by": "kustomize",
-              "app.kubernetes.io/created-by": "kubeblocks",
-              "app.kubernetes.io/instance": "componentresourceconstraint-sample",
-              "app.kubernetes.io/name": "componentresourceconstraint",
-              "app.kubernetes.io/part-of": "kubeblocks"
-            },
-            "name": "componentresourceconstraint-sample"
-          },
-          "spec": null
-        },
-        {
-          "apiVersion": "apps.kubeblocks.io/v1alpha1",
-          "kind": "Configuration",
-          "metadata": {
-            "labels": {
-              "app.kubernetes.io/created-by": "kubeblocks",
-              "app.kubernetes.io/instance": "configuration-sample",
-              "app.kubernetes.io/managed-by": "kustomize",
-              "app.kubernetes.io/name": "configuration",
-              "app.kubernetes.io/part-of": "kubeblocks"
-            },
-            "name": "configuration-sample"
-          },
-          "spec": null
-        },
-        {
-          "apiVersion": "apps.kubeblocks.io/v1alpha1",
-          "kind": "OpsDefinition",
-          "metadata": {
-            "name": "opsdefinition-sample"
-          },
-          "spec": null
-        },
-        {
-          "apiVersion": "apps.kubeblocks.io/v1alpha1",
-          "kind": "OpsRequest",
-          "metadata": {
-            "generateName": "mysql-horizontalscaling-",
-            "name": "mysql-horizontalscaling-",
-            "namespace": "default"
-          },
-          "spec": {
-            "clusterRef": "wesql",
-            "horizontalScaling": [
-              {
-                "componentName": "wesql",
-                "replicas": 3
-              }
-            ],
-            "type": "HorizontalScaling"
-          }
-        },
-        {
-          "apiVersion": "apps.kubeblocks.io/v1alpha1",
-          "kind": "OpsRequest",
-          "metadata": {
-            "generateName": "mysql-reconfigure-",
-            "name": "mysql-reconfigure-",
-            "namespace": "default"
-          },
-          "spec": {
-            "clusterRef": "wesql",
-            "reconfigure": {
-              "componentName": "wesql",
-              "configurations": [
-                {
-                  "keys": [
-                    {
-                      "key": "my.cnf",
-                      "parameters": [
-                        {
-                          "key": "general_log",
-                          "value": "OFF"
-                        },
-                        {
-                          "key": "max_connections",
-                          "value": "2000"
-                        }
-                      ]
-                    }
-                  ],
-                  "name": "mysql-3node-tpl"
-                }
-              ]
-            },
-            "type": "Reconfiguring"
-          }
-        },
-        {
-          "apiVersion": "apps.kubeblocks.io/v1alpha1",
-          "kind": "OpsRequest",
-          "metadata": {
-            "generateName": "mysql-restart-",
-            "name": "mysql-restart-",
-            "namespace": "default"
-          },
-          "spec": {
-            "clusterRef": "wesql",
-            "restart": [
-              {
-                "componentName": "replicasets"
-              }
-            ],
-            "ttlSecondsAfterSucceed": 3600,
-            "type": "Restart"
-          }
-        },
-        {
-          "apiVersion": "apps.kubeblocks.io/v1alpha1",
-          "kind": "OpsRequest",
-          "metadata": {
-            "generateName": "mysql-upgrade-",
-            "name": "mysql-upgrade-",
-            "namespace": "default"
-          },
-          "spec": {
-            "clusterRef": "wesql",
-            "type": "Upgrade",
-            "upgrade": {
-              "clusterVersionRef": "wesql-8.0.32"
-            }
-          }
-        },
-        {
-          "apiVersion": "apps.kubeblocks.io/v1alpha1",
-          "kind": "OpsRequest",
-          "metadata": {
-            "generateName": "mysql-verticalscaling-",
-            "name": "mysql-verticalscaling-",
-            "namespace": "default"
-          },
-          "spec": {
-            "clusterRef": "wesql",
-            "ttlSecondsAfterSucceed": 600,
-            "type": "VerticalScaling",
-            "verticalScaling": [
-              {
-                "componentName": "wesql",
-                "limits": {
-                  "cpu": "300m",
-                  "memory": "470Mi"
-                },
-                "requests": {
-                  "cpu": "280m",
-                  "memory": "390Mi"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "apiVersion": "apps.kubeblocks.io/v1alpha1",
-          "kind": "OpsRequest",
-          "metadata": {
-            "generateName": "mysql-volumeexpansion-",
-            "name": "mysql-volumeexpansion-",
-            "namespace": "default"
-          },
-          "spec": {
-            "clusterRef": "wesql",
-            "type": "VolumeExpansion",
-            "volumeExpansion": [
-              {
-                "componentName": "wesql",
-                "volumeClaimTemplates": [
-                  {
-                    "name": "data",
-                    "storage": "2Gi"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "apiVersion": "apps.kubeblocks.io/v1alpha1",
-          "kind": "ServiceDescriptor",
-          "metadata": {
-            "labels": {
-              "app.kubernetes.io/created-by": "kubeblocks",
-              "app.kubernetes.io/instance": "servicedescriptor-sample",
-              "app.kubernetes.io/managed-by": "kustomize",
-              "app.kubernetes.io/name": "servicedescriptor",
-              "app.kubernetes.io/part-of": "kubeblocks"
-            },
-            "name": "servicedescriptor-sample"
-          },
-          "spec": null
-        },
-        {
-          "apiVersion": "dataprotection.kubeblocks.io/v1alpha1",
-          "kind": "Restore",
-          "metadata": {
-            "name": "restore-sample"
-          },
-          "spec": null
-        },
-        {
-          "apiVersion": "extensions.kubeblocks.io/v1alpha1",
-          "kind": "Addon",
-          "metadata": {
-            "labels": {
-              "app.kubernetes.io/created-by": "kubeblocks",
-              "app.kubernetes.io/instance": "addon-sample",
-              "app.kubernetes.io/managed-by": "kustomize",
-              "app.kubernetes.io/name": "addon",
-              "app.kubernetes.io/part-of": "kubeblocks"
-            },
-            "name": "prometheus-sample"
-          },
-          "spec": {
-            "defaultInstallValues": [
-              {
-                "extras": [
-                  {
-                    "name": "alertmanager",
-                    "replicas": 1,
-                    "resources": {
-                      "requests": {
-                        "storage": "1Gi"
-                      }
-                    },
-                    "storageClass": null,
-                    "tolerations": "[]"
-                  }
-                ],
-                "replicas": 1,
-                "resources": {
-                  "requests": {
-                    "storage": "1Gi"
-                  }
-                },
-                "storageClass": null,
-                "tolerations": "[]"
-              },
-              {
-                "extras": [
-                  {
-                    "name": "alertmanager",
-                    "replicas": 1,
-                    "resources": {
-                      "requests": {
-                        "storage": "20Gi"
-                      }
-                    },
-                    "storageClass": "alicloud-disk-efficiency"
-                  }
-                ],
-                "replicas": 1,
-                "resources": {
-                  "requests": {
-                    "storage": "20Gi"
-                  }
-                },
-                "selectors": [
-                  {
-                    "key": "KubeGitVersion",
-                    "operator": "Contains",
-                    "values": [
-                      "ack"
-                    ]
-                  }
-                ],
-                "storageClass": "alicloud-disk-efficiency",
-                "tolerations": "[]"
-              }
-            ],
-            "description": "Prometheus is a monitoring system and time series database.",
-            "helm": {
-              "chartLocationURL": "https://github.com/prometheus-community/helm-charts/releases/download/prometheus-15.16.1/prometheus-15.16.1.tgz",
-              "installOptions": null,
-              "installValues": {
-                "configMapRefs": null,
-                "secretRefs": null,
-                "setJSONValues": [],
-                "setValues": [
-                  "alertmanager.image.repository=infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/alertmanager",
-                  "alertmanager.image.tag=v0.24.0",
-                  "kubeStateMetrics.enabled=false",
-                  "nodeExporter.enabled=false",
-                  "nodeExporter.image.repository=infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/node-exporter",
-                  "nodeExporter.image.tag=v1.3.1",
-                  "configmapReload.prometheus.image.repository=infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/configmap-reload",
-                  "configmapReload.prometheus.image.tag=v0.5.0",
-                  "configmapReload.alertmanager.image.repository=infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/configmap-reload",
-                  "configmapReload.alertmanager.image.tag=v0.5.0",
-                  "server.image.repository=infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/prometheus",
-                  "server.image.tag=v2.39.1",
-                  "pushgateway.enabled=false"
-                ],
-                "urls": []
-              },
-              "valuesMapping": {
-                "extras": [
-                  {
-                    "jsonMap": {
-                      "tolerations": "alertmanager.tolerations"
-                    },
-                    "name": "alertmanager",
-                    "resources": {
-                      "cpu": {
-                        "limits": "alertmanager.resources.limits.cpu",
-                        "requests": "alertmanager.resources.requests.cpu"
-                      },
-                      "memory": {
-                        "limits": "alertmanager.resources.limits.memory",
-                        "requests": "alertmanager.resources.requests.memory"
-                      },
-                      "storage": "alertmanager.persistentVolume.size"
-                    },
-                    "valueMap": {
-                      "persistentVolumeEnabled": "alertmanager.persistentVolume.enabled",
-                      "replicaCount": "alertmanager.replicaCount",
-                      "storageClass": "alertmanager.persistentVolume.storageClass"
-                    }
-                  }
-                ],
-                "jsonMap": {
-                  "tolerations": "server.tolerations"
-                },
-                "resources": {
-                  "cpu": {
-                    "limits": "server.resources.limits.cpu",
-                    "requests": "server.resources.requests.cpu"
-                  },
-                  "memory": {
-                    "limits": "server.resources.limits.memory",
-                    "requests": "server.resources.requests.memory"
-                  },
-                  "storage": "server.persistentVolume.size"
-                },
-                "valueMap": {
-                  "persistentVolumeEnabled": "server.persistentVolume.enabled",
-                  "replicaCount": "server.replicaCount",
-                  "storageClass": "server.persistentVolume.storageClass"
-                }
-              }
-            },
-            "installable": {
-              "autoInstall": true,
-              "selectors": [
-                {
-                  "key": "KubeGitVersion",
-                  "operator": "Contains",
-                  "values": [
-                    "eks",
-                    "ack"
-                  ]
-                }
-              ]
-            },
-            "type": "Helm"
-          }
-        },
-        {
-          "apiVersion": "workloads.kubeblocks.io/v1alpha1",
-          "kind": "ReplicatedStateMachine",
-          "metadata": {
-            "labels": {
-              "app.kubernetes.io/created-by": "kubeblocks",
-              "app.kubernetes.io/instance": "replicatedstatemachine-sample",
-              "app.kubernetes.io/managed-by": "kustomize",
-              "app.kubernetes.io/name": "replicatedstatemachine",
-              "app.kubernetes.io/part-of": "kubeblocks"
-            },
-            "name": "replicatedstatemachine-sample"
-          },
-          "spec": null
         }
       ]
     capabilities: Basic Install
+    categories: Database
     createdAt: "2024-06-24T09:38:07Z"
     operators.operatorframework.io/builder: operator-sdk-v1.35.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
-  name: kubeblocks.v0.8.0-alpha.0
+    operatorframework.io/suggested-namespace: kb-system
+  labels:
+    operatorframework.io/arch.amd64: supported
+    operatorframework.io/arch.arm64: supported
+    operatorframework.io/os.linux: supported
+  name: kubeblocks.0.8.1
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -523,11 +125,11 @@ spec:
     - kind: StorageProvider
       name: storageproviders.storage.kubeblocks.io
       version: v1alpha1
-  description: kubeblocks
   displayName: kubeblocks
+  description: Run Any Database Anywhere.
   icon:
   - base64data: ""
-    mediatype: ""
+    mediatype: "image/png"
   install:
     spec:
       clusterPermissions:
@@ -1100,11 +702,19 @@ spec:
         - apiGroups:
           - ""
           resources:
+          - configmaps
+          - persistentvolumeclaims
+          - secrets
           - serviceaccounts
+          - services
           verbs:
           - get
           - list
+          - patch
+          - update
           - watch
+          - create
+          - delete
         - apiGroups:
           - ""
           resources:
@@ -1490,15 +1100,13 @@ spec:
         serviceAccountName: kubeblocks
       deployments:
       - label:
-          control-plane: controller-manager
+          app: kubeblocks
         name: kubeblocks
         spec:
           replicas: 1
           selector:
             matchLabels:
-              control-plane: controller-manager
-              app.kubernetes.io/instance: kubeblocks
-              app.kubernetes.io/name: kubeblocks
+              app: kubeblocks
           strategy:
             rollingUpdate:
               maxSurge: 1
@@ -1506,13 +1114,19 @@ spec:
             type: RollingUpdate
           template:
             metadata:
-              annotations:
-                kubectl.kubernetes.io/default-container: manager
               labels:
-                control-plane: controller-manager
-                app.kubernetes.io/instance: kubeblocks
-                app.kubernetes.io/name: kubeblocks
+                app: kubeblocks
             spec:
+              affinity:
+                podAntiAffinity:
+                  requiredDuringSchedulingIgnoredDuringExecution:
+                    - labelSelector:
+                        matchExpressions:
+                          - key: app
+                            operator: In
+                            values:
+                              - kubeblocks
+                      topologyKey: "kubernetes.io/hostname"
               containers:
               - args:
                 - --health-probe-bind-address=:8081
@@ -1534,9 +1148,9 @@ spec:
                   - name: KUBEBLOCKS_IMAGE_PULL_POLICY
                     value: IfNotPresent
                   - name: KUBEBLOCKS_TOOLS_IMAGE
-                    value: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-tools:0.8.1
+                    value: registry.cn-hangzhou.aliyuncs.com/hetudb/kubeblocks-tools:0.8.1
                   - name: KUBEBLOCKS_DATASCRIPT_CLIENTS_IMAGE
-                    value: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-datascript:0.8.1
+                    value: registry.cn-hangzhou.aliyuncs.com/hetudb/kubeblocks-datascript:0.8.1
                   - name: KUBEBLOCKS_SERVICEACCOUNT_NAME
                     value: kubeblocks
                   - name: VOLUMESNAPSHOT_API_BETA
@@ -1564,18 +1178,19 @@ spec:
                     value: kubeblocks-host-ports
                 command:
                 - /manager
-                image: docker.io/hetudb/kubeblocks:0.8.0-alpha.0
+                image: registry.cn-hangzhou.aliyuncs.com/hetudb/kubeblocks:0.8.1
                 imagePullPolicy: IfNotPresent
+                name: kubeblocks
                 livenessProbe:
                   failureThreshold: 3
                   httpGet:
                     path: /healthz
-                    port: 8081
+                    port: health
+                    scheme: HTTP
                   initialDelaySeconds: 15
                   periodSeconds: 20
                   successThreshold: 1
                   timeoutSeconds: 1
-                name: manager
                 ports:
                 - containerPort: 9443
                   name: webhook-server
@@ -1590,7 +1205,8 @@ spec:
                   failureThreshold: 3
                   httpGet:
                     path: /readyz
-                    port: 8081
+                    port: health
+                    scheme: HTTP
                   initialDelaySeconds: 5
                   periodSeconds: 10
                   successThreshold: 1
@@ -1603,22 +1219,19 @@ spec:
                     cpu: 10m
                     memory: 64Mi
                 securityContext:
-                  allowPrivilegeEscalation: true
+                  allowPrivilegeEscalation: false
                   capabilities:
                     drop:
                     - ALL
                 terminationMessagePath: /dev/termination-log
                 terminationMessagePolicy: File
                 volumeMounts:
-                - mountPath: /tmp/k8s-webhook-server/serving-certs
-                  name: cert
-                  readOnly: true
                 - mountPath: /etc/kubeblocks
                   name: manager-config
               initContainers:
               - command:
                 - /bin/true
-                image: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-tools:0.8.1
+                image: registry.cn-hangzhou.aliyuncs.com/hetudb/kubeblocks-tools:0.8.1
                 imagePullPolicy: IfNotPresent
                 name: tools
                 resources: { }
@@ -1626,7 +1239,7 @@ spec:
                 terminationMessagePolicy: File
               - command:
                 - /bin/true
-                image: infracreate-registry.cn-zhangjiakou.cr.aliyuncs.com/apecloud/kubeblocks-datascript:0.8.1
+                image: registry.cn-hangzhou.aliyuncs.com/hetudb/kubeblocks-datascript:0.8.1
                 imagePullPolicy: IfNotPresent
                 name: datascript
                 resources: { }
@@ -1635,15 +1248,11 @@ spec:
               restartPolicy: Always
               schedulerName: default-scheduler
               securityContext:
-                runAsNonRoot: false
+                runAsNonRoot: true
               serviceAccount: kubeblocks
               serviceAccountName: kubeblocks
               terminationGracePeriodSeconds: 10
               volumes:
-              - name: cert
-                secret:
-                  defaultMode: 420
-                  secretName: webhook-server-cert
               - configMap:
                   defaultMode: 420
                   name: kubeblocks-config
@@ -1714,265 +1323,13 @@ spec:
   provider:
     name: ApeCloud Inc
     url: https://kubeblocks.io
-  version: 0.8.0-alpha.0
-  webhookdefinitions:
-  - admissionReviewVersions:
-    - v1
-    containerPort: 443
-    deploymentName: kubeblocks-controller-manager
-    failurePolicy: Fail
-    generateName: mclusterdefinition.kb.io
-    rules:
-    - apiGroups:
-      - apps.kubeblocks.io
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - clusterdefinitions
-    sideEffects: None
-    targetPort: 9443
-    type: MutatingAdmissionWebhook
-    webhookPath: /mutate-apps-kubeblocks-io-v1alpha1-clusterdefinition
-  - admissionReviewVersions:
-    - v1
-    containerPort: 443
-    deploymentName: kubeblocks-controller-manager
-    failurePolicy: Fail
-    generateName: mcomponent.kb.io
-    rules:
-    - apiGroups:
-      - apps.kubeblocks.io
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - components
-    sideEffects: None
-    targetPort: 9443
-    type: MutatingAdmissionWebhook
-    webhookPath: /mutate-apps-kubeblocks-io-v1alpha1-component
-  - admissionReviewVersions:
-    - v1
-    containerPort: 443
-    deploymentName: kubeblocks-controller-manager
-    failurePolicy: Fail
-    generateName: mcomponentdefinition.kb.io
-    rules:
-    - apiGroups:
-      - apps.kubeblocks.io
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - componentdefinitions
-    sideEffects: None
-    targetPort: 9443
-    type: MutatingAdmissionWebhook
-    webhookPath: /mutate-apps-kubeblocks-io-v1alpha1-componentdefinition
-  - admissionReviewVersions:
-    - v1
-    containerPort: 443
-    deploymentName: kubeblocks-controller-manager
-    failurePolicy: Fail
-    generateName: mreplicatedstatemachine.kb.io
-    rules:
-    - apiGroups:
-      - workloads.kubeblocks.io
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - replicatedstatemachines
-    sideEffects: None
-    targetPort: 9443
-    type: MutatingAdmissionWebhook
-    webhookPath: /mutate-workloads-kubeblocks-io-v1alpha1-replicatedstatemachine
-  - admissionReviewVersions:
-    - v1
-    containerPort: 443
-    deploymentName: kubeblocks-controller-manager
-    failurePolicy: Fail
-    generateName: mservicedescriptor.kb.io
-    rules:
-    - apiGroups:
-      - apps.kubeblocks.io
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - servicedescriptors
-    sideEffects: None
-    targetPort: 9443
-    type: MutatingAdmissionWebhook
-    webhookPath: /mutate-apps-kubeblocks-io-v1alpha1-servicedescriptor
-  - admissionReviewVersions:
-    - v1
-    containerPort: 443
-    deploymentName: kubeblocks-controller-manager
-    failurePolicy: Fail
-    generateName: vcluster.kb.io
-    rules:
-    - apiGroups:
-      - apps.kubeblocks.io
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - clusters
-    sideEffects: None
-    targetPort: 9443
-    type: ValidatingAdmissionWebhook
-    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-cluster
-  - admissionReviewVersions:
-    - v1
-    containerPort: 443
-    deploymentName: kubeblocks-controller-manager
-    failurePolicy: Fail
-    generateName: vclusterdefinition.kb.io
-    rules:
-    - apiGroups:
-      - apps.kubeblocks.io
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - clusterdefinitions
-    sideEffects: None
-    targetPort: 9443
-    type: ValidatingAdmissionWebhook
-    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-clusterdefinition
-  - admissionReviewVersions:
-    - v1
-    containerPort: 443
-    deploymentName: kubeblocks-controller-manager
-    failurePolicy: Fail
-    generateName: vclusterversion.kb.io
-    rules:
-    - apiGroups:
-      - apps.kubeblocks.io
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - clusterversions
-    sideEffects: None
-    targetPort: 9443
-    type: ValidatingAdmissionWebhook
-    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-clusterversion
-  - admissionReviewVersions:
-    - v1
-    containerPort: 443
-    deploymentName: kubeblocks-controller-manager
-    failurePolicy: Fail
-    generateName: vcomponent.kb.io
-    rules:
-    - apiGroups:
-      - apps.kubeblocks.io
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - components
-    sideEffects: None
-    targetPort: 9443
-    type: ValidatingAdmissionWebhook
-    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-component
-  - admissionReviewVersions:
-    - v1
-    containerPort: 443
-    deploymentName: kubeblocks-controller-manager
-    failurePolicy: Fail
-    generateName: vcomponentdefinition.kb.io
-    rules:
-    - apiGroups:
-      - apps.kubeblocks.io
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - componentdefinitions
-    sideEffects: None
-    targetPort: 9443
-    type: ValidatingAdmissionWebhook
-    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-componentdefinition
-  - admissionReviewVersions:
-    - v1
-    containerPort: 443
-    deploymentName: kubeblocks-controller-manager
-    failurePolicy: Fail
-    generateName: vopsrequest.kb.io
-    rules:
-    - apiGroups:
-      - apps.kubeblocks.io
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - opsrequests
-    sideEffects: None
-    targetPort: 9443
-    type: ValidatingAdmissionWebhook
-    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-opsrequest
-  - admissionReviewVersions:
-    - v1
-    containerPort: 443
-    deploymentName: kubeblocks-controller-manager
-    failurePolicy: Fail
-    generateName: vreplicatedstatemachine.kb.io
-    rules:
-    - apiGroups:
-      - workloads.kubeblocks.io
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - replicatedstatemachines
-    sideEffects: None
-    targetPort: 9443
-    type: ValidatingAdmissionWebhook
-    webhookPath: /validate-workloads-kubeblocks-io-v1alpha1-replicatedstatemachine
-  - admissionReviewVersions:
-    - v1
-    containerPort: 443
-    deploymentName: kubeblocks-controller-manager
-    failurePolicy: Fail
-    generateName: vservicedescriptor.kb.io
-    rules:
-    - apiGroups:
-      - apps.kubeblocks.io
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - servicedescriptors
-    sideEffects: None
-    targetPort: 9443
-    type: ValidatingAdmissionWebhook
-    webhookPath: /validate-apps-kubeblocks-io-v1alpha1-servicedescriptor
+  version: 0.8.1
+  relatedImages:
+    - name: kubeblocks-image
+      image: registry.cn-hangzhou.aliyuncs.com/hetudb/kubeblocks:0.8.1
+    - name: dataprotection-image
+      image: registry.cn-hangzhou.aliyuncs.com/hetudb/kubeblocks-dataprotection:0.8.1
+    - name: datascript-image
+      image: registry.cn-hangzhou.aliyuncs.com/hetudb/kubeblocks-datascript:0.8.1
+    - name: tools-image
+      image: registry.cn-hangzhou.aliyuncs.com/hetudb/kubeblocks-tools:0.8.1
