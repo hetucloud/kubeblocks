@@ -15,7 +15,7 @@
 # Variables                                                                    #
 ################################################################################
 APP_NAME = kubeblocks
-VERSION ?= 0.8.0-alpha.0
+VERSION ?= 0.8.1
 GITHUB_PROXY ?=
 INIT_ENV ?= false
 TEST_TYPE ?= wesql
@@ -735,7 +735,7 @@ BUNDLE_METADATA_OPTS ?= $(BUNDLE_CHANNELS) $(BUNDLE_DEFAULT_CHANNEL)
 #
 # For example, running 'make bundle-build bundle-push catalog-build catalog-push' will build and push both
 # docker.io/apecloud/kubeblocks-bundle:$VERSION and docker.io/apecloud/kubeblocks-catalog:$VERSION.
-IMAGE_TAG_BASE ?= docker.io/hetudb/$(APP_NAME)
+IMAGE_TAG_BASE ?= registry.cn-hangzhou.aliyuncs.com/hetudb/$(APP_NAME)
 
 # BUNDLE_IMG defines the image:tag used for the bundle.
 # You can use it as an arg. (E.g make bundle-build BUNDLE_IMG=<some-registry>/<project-name-bundle>:<tag>)

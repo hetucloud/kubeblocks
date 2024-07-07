@@ -159,7 +159,7 @@ spec:
                     value: kubeblocks-host-ports
                 command:
                 - /manager
-                image: docker.io/hetudb/kubeblocks:0.8.0-alpha.0
+                image: registry.cn-hangzhou.aliyuncs.com/hetudb/kubeblocks:0.8.1
                 imagePullPolicy: IfNotPresent
                 livenessProbe:
                   failureThreshold: 3
